@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Runpreneur Content Workflow &mdash; Standard Operating Procedure</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6; color: #1e293b; background: #f1f5f9;
+}
+:root {
+  --blue-50:#eff6ff;--blue-100:#dbeafe;--blue-200:#bfdbfe;--blue-500:#3b82f6;--blue-600:#2563eb;--blue-700:#1d4ed8;--blue-800:#1e40af;--blue-900:#1e3a5f;
+  --indigo-50:#eef2ff;--indigo-100:#e0e7ff;--indigo-500:#6366f1;--indigo-600:#4f46e5;--indigo-700:#4338ca;
+  --green-50:#f0fdf4;--green-100:#dcfce7;--green-500:#22c55e;--green-600:#16a34a;--green-700:#15803d;
+  --amber-50:#fffbeb;--amber-100:#fef3c7;--amber-500:#f59e0b;--amber-600:#d97706;
+  --red-50:#fef2f2;--red-100:#fee2e2;--red-500:#ef4444;--red-600:#dc2626;
+  --purple-50:#faf5ff;--purple-500:#a855f7;--purple-600:#9333ea;
+  --slate-50:#f8fafc;--slate-100:#f1f5f9;--slate-200:#e2e8f0;--slate-300:#cbd5e1;--slate-400:#94a3b8;--slate-500:#64748b;--slate-600:#475569;--slate-700:#334155;--slate-800:#1e293b;
+  --shadow:0 1px 3px rgba(0,0,0,0.1),0 1px 2px rgba(0,0,0,0.06);--shadow-md:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06);--shadow-lg:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -2px rgba(0,0,0,0.05);
+  --radius:12px;--radius-sm:8px;
+}
+.header { background: linear-gradient(135deg, var(--blue-800) 0%, var(--indigo-700) 100%); color: white; padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+.header::after { content:''; position:absolute; top:-50%; right:-10%; width:500px; height:500px; background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 70%); border-radius:50%; }
+.header-inner { max-width:1100px; margin:0 auto; position:relative; z-index:1; }
+.header-back { display:inline-flex; align-items:center; gap:0.4rem; font-size:0.82rem; opacity:0.7; text-decoration:none; color:white; margin-bottom:1rem; transition:opacity 0.15s; }
+.header-back:hover { opacity:1; }
+.header h1 { font-size:2.2rem; font-weight:700; margin-bottom:0.3rem; letter-spacing:-0.5px; }
+.header .subtitle { font-size:1.05rem; opacity:0.85; }
+.header .version { font-size:0.85rem; opacity:0.6; margin-top:0.5rem; }
+.container { max-width:1100px; margin:0 auto; padding:0 1.5rem 4rem; }
+.section { margin-top:2.5rem; }
+.section-title { font-size:1.5rem; font-weight:700; color:var(--blue-800); padding-bottom:0.5rem; border-bottom:3px solid var(--blue-200); margin-bottom:1.25rem; display:flex; align-items:center; gap:0.5rem; }
+.section-title .icon { font-size:1.4rem; }
+.card { background:white; border-radius:var(--radius); box-shadow:var(--shadow); padding:1.5rem; margin-bottom:1.25rem; border:1px solid var(--slate-200); }
+.card-header { font-size:1.1rem; font-weight:600; color:var(--slate-800); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem; }
+.quick-ref { background:linear-gradient(135deg,var(--blue-50) 0%,var(--indigo-50) 100%); border:2px solid var(--blue-200); border-radius:var(--radius); padding:1.5rem; margin-top:-1rem; position:relative; z-index:2; box-shadow:var(--shadow-lg); }
+.quick-ref h2 { font-size:1.2rem; color:var(--blue-800); margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem; }
+.qr-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:0.75rem; }
+.qr-item { background:white; border-radius:var(--radius-sm); padding:0.75rem 1rem; border-left:4px solid var(--blue-500); font-size:0.88rem; }
+.qr-item .qr-label { font-weight:600; color:var(--slate-600); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px; }
+.qr-item .qr-value { color:var(--slate-800); margin-top:0.15rem; word-break:break-all; }
+.qr-item .qr-value a { color:var(--blue-600); text-decoration:none; }
+.qr-item .qr-value a:hover { text-decoration:underline; }
+.toc { background:white; border-radius:var(--radius); box-shadow:var(--shadow); padding:1.5rem; border:1px solid var(--slate-200); }
+.toc h2 { font-size:1.15rem; color:var(--blue-800); margin-bottom:1rem; }
+.toc-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:0.35rem 1.5rem; }
+.toc a { display:flex; align-items:center; gap:0.5rem; color:var(--slate-700); text-decoration:none; padding:0.35rem 0.5rem; border-radius:6px; font-size:0.9rem; transition:background 0.15s; }
+.toc a:hover { background:var(--blue-50); color:var(--blue-700); }
+.toc a .toc-num { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%; background:var(--blue-100); color:var(--blue-700); font-size:0.7rem; font-weight:700; flex-shrink:0; }
+.toc-stage { font-size:0.8rem; font-weight:700; color:var(--purple-600); text-transform:uppercase; letter-spacing:1px; padding:0.5rem 0.5rem 0.25rem; border-top:1px dashed var(--slate-300); margin-top:0.5rem; grid-column:1/-1; }
+.toc-stage:first-of-type { border-top:none; margin-top:0; padding-top:0; }
+.stage-banner { background:linear-gradient(135deg,var(--purple-500) 0%,var(--indigo-600) 100%); color:white; padding:2rem 2rem 1.75rem; border-radius:var(--radius); margin:3rem 0 1.5rem; box-shadow:var(--shadow-lg); position:relative; overflow:hidden; }
+.stage-banner::after { content:''; position:absolute; top:-50%; right:-10%; width:300px; height:300px; background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 70%); border-radius:50%; }
+.stage-banner-inner { position:relative; z-index:1; }
+.stage-banner .stage-tag { font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:2px; opacity:0.8; margin-bottom:0.5rem; }
+.stage-banner h2 { font-size:1.8rem; font-weight:700; margin-bottom:0.4rem; letter-spacing:-0.3px; }
+.stage-banner .stage-desc { font-size:1rem; opacity:0.9; }
+.flow { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:0; padding:1.5rem 0; }
+.flow-step { background:white; border:2px solid var(--blue-200); border-radius:var(--radius-sm); padding:0.75rem 1.1rem; text-align:center; font-size:0.85rem; font-weight:600; color:var(--slate-700); min-width:110px; }
+.flow-step.primary { background:var(--blue-600); color:white; border-color:var(--blue-700); }
+.flow-step.success { background:var(--green-600); color:white; border-color:var(--green-700); }
+.flow-step.warning { background:var(--amber-500); color:white; border-color:var(--amber-600); }
+.flow-step.purple { background:var(--purple-600); color:white; border-color:var(--purple-600); }
+.flow-step .flow-icon { font-size:1.3rem; display:block; margin-bottom:0.25rem; }
+.flow-step .flow-sub { font-weight:400; font-size:0.75rem; opacity:0.85; margin-top:0.15rem; }
+.flow-arrow { font-size:1.4rem; color:var(--slate-400); padding:0 0.3rem; flex-shrink:0; }
+.label-table { width:100%; border-collapse:separate; border-spacing:0; font-size:0.88rem; }
+.label-table th { background:var(--blue-700); color:white; padding:0.75rem 1rem; text-align:left; font-weight:600; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.5px; }
+.label-table th:first-child { border-radius:var(--radius-sm) 0 0 0; }
+.label-table th:last-child { border-radius:0 var(--radius-sm) 0 0; }
+.label-table td { padding:0.65rem 1rem; border-bottom:1px solid var(--slate-200); vertical-align:top; }
+.label-table tr:last-child td { border-bottom:none; }
+.label-table tr:nth-child(even) td { background:var(--slate-50); }
+.label-table tr:hover td { background:var(--blue-50); }
+.label-badge { display:inline-block; padding:0.2rem 0.6rem; border-radius:999px; font-weight:600; font-size:0.78rem; white-space:nowrap; }
+.lb-blue { background:#dbeafe; color:#1d4ed8; } .lb-amber { background:#fef3c7; color:#92400e; }
+.lb-red { background:#fee2e2; color:#991b1b; } .lb-green { background:#dcfce7; color:#166534; }
+.lb-purple { background:#e0e7ff; color:#3730a3; }
+.wf-card { background:white; border-radius:var(--radius); box-shadow:var(--shadow); border:1px solid var(--slate-200); overflow:hidden; margin-bottom:1.5rem; }
+.wf-header { padding:1rem 1.5rem; display:flex; align-items:center; gap:0.75rem; border-bottom:1px solid var(--slate-200); }
+.wf-num { display:inline-flex; align-items:center; justify-content:center; width:auto; min-width:36px; height:36px; padding:0 0.6rem; border-radius:18px; font-weight:700; font-size:0.9rem; flex-shrink:0; color:white; background:var(--blue-600); }
+.wf-num.stage-b { background:var(--purple-600); }
+.wf-header h3 { font-size:1.1rem; font-weight:700; color:var(--slate-800); }
+.wf-header .wf-tag { font-size:0.75rem; padding:0.15rem 0.5rem; border-radius:999px; background:var(--slate-100); color:var(--slate-600); font-weight:500; }
+.wf-body { padding:1.25rem 1.5rem; }
+.wf-body h4 { font-size:0.9rem; font-weight:600; color:var(--slate-700); margin-bottom:0.5rem; margin-top:1rem; }
+.wf-body h4:first-child { margin-top:0; }
+.steps { counter-reset:step; list-style:none; padding:0; }
+.steps li { position:relative; padding:0.5rem 0 0.5rem 2.5rem; font-size:0.9rem; line-height:1.5; }
+.steps li::before { counter-increment:step; content:counter(step); position:absolute; left:0; top:0.45rem; width:24px; height:24px; border-radius:50%; background:var(--blue-100); color:var(--blue-700); font-size:0.75rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
+.steps li + li { border-top:1px solid var(--slate-100); }
+.info-box { padding:0.85rem 1rem; border-radius:var(--radius-sm); font-size:0.88rem; margin:0.75rem 0; display:flex; align-items:flex-start; gap:0.6rem; }
+.info-box.info { background:var(--blue-50); border-left:4px solid var(--blue-500); color:var(--blue-800); }
+.info-box.warn { background:var(--amber-50); border-left:4px solid var(--amber-500); color:#92400e; }
+.info-box.danger { background:var(--red-50); border-left:4px solid var(--red-500); color:#991b1b; }
+.info-box.tip { background:var(--green-50); border-left:4px solid var(--green-500); color:var(--green-700); }
+.info-box .ib-icon { font-size:1.1rem; flex-shrink:0; margin-top:0.05rem; }
+code { background:var(--slate-100); padding:0.15rem 0.4rem; border-radius:4px; font-size:0.82rem; font-family:'SF Mono',Monaco,Consolas,monospace; color:var(--indigo-600); }
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+strong { color:var(--slate-800); } a { color:var(--blue-600); }
+p { margin-bottom:0.5rem; } ul,ol { margin-left:1.25rem; margin-bottom:0.5rem; }
+li { margin-bottom:0.2rem; font-size:0.9rem; } hr { border:none; border-top:1px solid var(--slate-200); margin:1.5rem 0; }
+@media (max-width:768px) {
+  .header h1 { font-size:1.6rem; } .qr-grid { grid-template-columns:1fr; }
+  .toc-grid { grid-template-columns:1fr; } .grid-2 { grid-template-columns:1fr; }
+  .flow { flex-direction:column; } .flow-arrow { transform:rotate(90deg); }
+  .container { padding:0 1rem 3rem; }
+  .stage-banner h2 { font-size:1.4rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <a href="../index.html" class="header-back">&#x2190; Back to SOP Index</a>
+    <h1>&#x1F3AC; Runpreneur Content Workflow</h1>
+    <div class="subtitle">Standard Operating Procedure &mdash; End-to-end episode lifecycle from video production to publishing &amp; sync</div>
+    <div class="version">Version 1.0 &bull; 16 Jun 2026 &bull; Owner: Kevin Brittain</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- QUICK REFERENCE -->
+<div class="quick-ref">
+  <h2>&#x26A1; Quick Reference</h2>
+  <div class="qr-grid">
+
+    <div class="qr-item">
+      <div class="qr-label">Trigger</div>
+      <div class="qr-value">New episode recorded &rarr; ready to edit, subtitle, and publish</div>
+    </div>
+
+    <div class="qr-item">
+      <div class="qr-label">Owner</div>
+      <div class="qr-value">Kevin Brittain</div>
+    </div>
+
+    <div class="qr-item">
+      <div class="qr-label">Primary Tools</div>
+      <div class="qr-value">Content Machine, Gemini API, Buffer (&times;2), YouTube, Facebook, runpreneur.org.uk, Stripe, Strava</div>
+    </div>
+
+    <div class="qr-item">
+      <div class="qr-label">Airtable Base</div>
+      <div class="qr-value">Operations Director (appnqjDpqDniH3IRl)</div>
+    </div>
+
+    <div class="qr-item">
+      <div class="qr-label">Approval Required</div>
+      <div class="qr-value">No (Kevin self-approves at publish)</div>
+    </div>
+
+    <div class="qr-item">
+      <div class="qr-label">Stages</div>
+      <div class="qr-value">A. Video Production &nbsp;&middot;&nbsp; B. Publishing &amp; Sync</div>
+    </div>
+
+    <div class="qr-item">
+      <div class="qr-label">Category</div>
+      <div class="qr-value">Content</div>
+    </div>
+
+    <div class="qr-item">
+      <div class="qr-label">Estimated Duration</div>
+      <div class="qr-value">1 hr 40 min &ndash; 2 hr 45 min per episode</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="section">
+  <div class="toc">
+    <h2>&#x1F4D1; Contents</h2>
+    <div class="toc-grid">
+
+      <div class="toc-stage">Stage A &mdash; Video Production</div>
+      <a href="#purpose-a"><span class="toc-num">A1</span> Purpose &amp; Scope</a>
+      <a href="#trigger-a"><span class="toc-num">A2</span> When to Use</a>
+      <a href="#inputs-a"><span class="toc-num">A3</span> Required Inputs</a>
+      <a href="#workflow-a"><span class="toc-num">A4</span> Step-by-Step Workflow</a>
+      <a href="#tools-a"><span class="toc-num">A5</span> Tools &amp; Integrations</a>
+      <a href="#approval-a"><span class="toc-num">A6</span> Approval Gates</a>
+      <a href="#outputs-a"><span class="toc-num">A7</span> Outputs</a>
+
+      <div class="toc-stage">Stage B &mdash; Publishing &amp; Sync</div>
+      <a href="#purpose-b"><span class="toc-num">B1</span> Purpose &amp; Scope</a>
+      <a href="#trigger-b"><span class="toc-num">B2</span> When to Use</a>
+      <a href="#inputs-b"><span class="toc-num">B3</span> Required Inputs</a>
+      <a href="#workflow-b"><span class="toc-num">B4</span> Step-by-Step Workflow</a>
+      <a href="#tools-b"><span class="toc-num">B5</span> Tools &amp; Integrations</a>
+      <a href="#approval-b"><span class="toc-num">B6</span> Approval Gates</a>
+      <a href="#outputs-b"><span class="toc-num">B7</span> Outputs</a>
+
+      <div class="toc-stage">Document Control</div>
+      <a href="#changelog"><span class="toc-num">&#x1F4DD;</span> Changelog</a>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- STAGE A &mdash; VIDEO PRODUCTION -->
+<!-- ════════════════════════════════════════ -->
+
+<div class="stage-banner">
+  <div class="stage-banner-inner">
+    <div class="stage-tag">&#x1F3AC; Stage A</div>
+    <h2>Video Production &mdash; Intro + Subtitle</h2>
+    <div class="stage-desc">Join the Runpreneur intro to the start of an episode and burn captions onto the main video. Produces one finished MP4 ready to publish.</div>
+  </div>
+</div>
+
+<!-- A1. PURPOSE -->
+<div class="section" id="purpose-a">
+  <h2 class="section-title"><span class="icon">&#x1F3AF;</span> A1. Purpose &amp; Scope</h2>
+  <div class="card">
+    <p>The Intro + Subtitle page joins the Runpreneur intro clip to the start of a recorded episode and burns word-for-word captions onto the main part of the video. It produces one finished MP4 ready to upload to YouTube and Google Drive.</p>
+    <p>Captions are made by Gemini, which listens to Kevin&rsquo;s audio and writes out what he says. The captions then appear on screen at roughly the right time as Kevin speaks.</p>
+    <div class="info-box info">
+      <span class="ib-icon">&#x2139;&#xFE0F;</span>
+      <div><strong>Scope:</strong> In scope &mdash; merging the intro clip, transcribing speech, burning subtitles, exporting a Full HD MP4. Out of scope &mdash; reframing 360&deg; <code>.insv</code> footage (use the Insta360 Reframe page first), thumbnail design, social copywriting.</div>
+    </div>
+  </div>
+</div>
+
+<!-- A2. TRIGGER -->
+<div class="section" id="trigger-a">
+  <h2 class="section-title"><span class="icon">&#x1F4A1;</span> A2. When to Use This Skill</h2>
+  <div class="card">
+    <div class="card-header">&#x1F4AC; Trigger Phrases</div>
+    <p>Use this workflow when:</p>
+    <ul>
+      <li>A new Runpreneur episode is recorded and ready for editing</li>
+      <li>The main video has been reframed from <code>.insv</code> to <code>.mp4</code> (or recorded as MP4 already)</li>
+      <li>You need a Long Form Video for YouTube with a Runpreneur intro and burned-in subtitles</li>
+      <li>The AI Chain prompts you with &ldquo;Intro + Subtitle &mdash; Active&rdquo;</li>
+    </ul>
+    <div class="info-box warn">
+      <span class="ib-icon">&#x26A0;&#xFE0F;</span>
+      <div><strong>Do not use this skill when:</strong> the video is still in <code>.insv</code> format (reframe first), the episode is a short-form clip without an intro, or the audio has no speech in it.</div>
+    </div>
+  </div>
+</div>
+
+<!-- A3. INPUTS -->
+<div class="section" id="inputs-a">
+  <h2 class="section-title"><span class="icon">&#x1F4E5;</span> A3. Required Inputs</h2>
+  <div class="card">
+    <table class="label-table">
+      <thead>
+        <tr><th>Input</th><th>Required</th><th>Description</th><th>Example</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Main Video</strong></td>
+          <td><span class="label-badge lb-red">Required</span></td>
+          <td>The episode recording. Must be an MP4 file. If the file is <code>.insv</code>, reframe it first.</td>
+          <td><em>1995 full.mp4</em></td>
+        </tr>
+        <tr>
+          <td><strong>Intro Clip</strong></td>
+          <td><span class="label-badge lb-red">Required</span></td>
+          <td>The standard Runpreneur intro animation. Already loaded for most episodes &mdash; check the green dashed box at the top of the page.</td>
+          <td><em>Intro-Clip-Runpreneur.mp4</em></td>
+        </tr>
+        <tr>
+          <td><strong>Insert Point</strong></td>
+          <td><span class="label-badge lb-red">Required</span></td>
+          <td>The time in the main video where the intro should appear. Usually around 0:05 (just after Kevin&rsquo;s opening hook).</td>
+          <td><em>0:05</em></td>
+        </tr>
+        <tr>
+          <td><strong>Gemini API Key</strong></td>
+          <td><span class="label-badge lb-red">Required</span></td>
+          <td>Already saved in the browser. Used to transcribe Kevin&rsquo;s speech for subtitles.</td>
+          <td><em>AIza&hellip; (auto-filled)</em></td>
+        </tr>
+        <tr>
+          <td><strong>OpenAI Key</strong></td>
+          <td><span class="label-badge lb-amber">Optional</span></td>
+          <td>Used only as a fallback if Gemini fails. Lives in the Advanced section.</td>
+          <td><em>sk-&hellip; (optional)</em></td>
+        </tr>
+        <tr>
+          <td><strong>Active Episode</strong></td>
+          <td><span class="label-badge lb-amber">Optional</span></td>
+          <td>The Airtable episode record this video belongs to. Set on the Pending Editing page so the transcript saves automatically.</td>
+          <td><em>Episode 1995</em></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- A4. WORKFLOW -->
+<div class="section" id="workflow-a">
+  <h2 class="section-title"><span class="icon">&#x1F504;</span> A4. Step-by-Step Workflow</h2>
+
+  <div class="card">
+    <div class="card-header">&#x1F5FA; Process Flow &mdash; Full Video (Long Form)</div>
+    <p style="font-size:0.88rem;color:var(--slate-600);margin-bottom:0.5rem;">Used for the main YouTube episode. Joins the Runpreneur intro + burns subtitles onto Kevin&rsquo;s speech.</p>
+    <div class="flow">
+      <div class="flow-step primary"><span class="flow-icon">&#x1F4E5;</span>Upload Video<div class="flow-sub">main MP4</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step primary"><span class="flow-icon">&#x1F4CC;</span>Mark Insert Point<div class="flow-sub">click on timeline</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step purple"><span class="flow-icon">&#x1F3A4;</span>Transcribe Audio<div class="flow-sub">Gemini reads speech</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step warning"><span class="flow-icon">&#x1F4AC;</span>Burn Subtitles<div class="flow-sub">tick the box</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step success"><span class="flow-icon">&#x1F4E4;</span>Export MP4<div class="flow-sub">download finished file</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">&#x1F5FA; Process Flow &mdash; LFMD Maker (Short Form Diary Clip)</div>
+    <p style="font-size:0.88rem;color:var(--slate-600);margin-bottom:0.5rem;">Used for &ldquo;Learnings From My Diary&rdquo; short clips. Lives on the LFMD Maker page.</p>
+    <div class="flow">
+      <div class="flow-step primary"><span class="flow-icon">&#x1F4E5;</span>Upload Video<div class="flow-sub">full episode MP4</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step purple"><span class="flow-icon">&#x1F3A4;</span>Transcribe Audio<div class="flow-sub">Gemini reads speech</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step purple"><span class="flow-icon">&#x2728;</span>AI Detect LFMD<div class="flow-sub">finds the lesson</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step warning"><span class="flow-icon">&#x2702;&#xFE0F;</span>Trim to 30&ndash;80s<div class="flow-sub">phrase-tier clip</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step success"><span class="flow-icon">&#x1F4E4;</span>Export Clip<div class="flow-sub">short-form MP4</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">&#x1F5FA; Process Flow &mdash; Summary Maker</div>
+    <p style="font-size:0.88rem;color:var(--slate-600);margin-bottom:0.5rem;">Used to turn an episode into written content for the blog, newsletter, and social posts.</p>
+    <div class="flow">
+      <div class="flow-step primary"><span class="flow-icon">&#x1F4E5;</span>Upload Video<div class="flow-sub">full episode MP4</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step purple"><span class="flow-icon">&#x1F3A4;</span>Transcribe Audio<div class="flow-sub">Gemini reads speech</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step purple"><span class="flow-icon">&#x2728;</span>AI Suggest Title<div class="flow-sub">Claude picks hook</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step warning"><span class="flow-icon">&#x270D;&#xFE0F;</span>Review &amp; Edit<div class="flow-sub">Kevin approves</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step success"><span class="flow-icon">&#x1F4BE;</span>Save to Airtable<div class="flow-sub">linked to episode</div></div>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num">A1</div><h3>Open the App and Pick the Page</h3><span class="wf-tag">manual</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Go to <a href="https://chaichoong.github.io/content-machine/">chaichoong.github.io/content-machine</a> in Chrome.</li>
+        <li>Look at the dark sidebar on the left.</li>
+        <li>Click <strong>Intro + Subtitle</strong>. It is the page with the clapperboard icon.</li>
+        <li>The page is highlighted orange when you are on it.</li>
+      </ol>
+      <div class="info-box tip"><span class="ib-icon">&#x1F4A1;</span><div>If you started from the Pending Editing page and clicked &ldquo;Long Form Video&rdquo;, the AI Chain panel will appear on the right and walk you through this and the next steps.</div></div>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num">A2</div><h3>Upload the Main Video</h3><span class="wf-tag">manual</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Find the box that says <strong>&ldquo;Drop main video or click to browse&rdquo;</strong>.</li>
+        <li>Drag your episode <code>.mp4</code> file into the box. Or click the box and pick the file from your Mac.</li>
+        <li>The video file name appears in blue under the box. Example: <em>1995 full.mp4 &middot; 1147MB</em>.</li>
+        <li>Wait a few seconds for the video to load in the Preview panel on the right.</li>
+      </ol>
+      <div class="info-box warn"><span class="ib-icon">&#x26A0;&#xFE0F;</span><div>If the file ends in <code>.insv</code> the upload is blocked. Open the <strong>Insta360 Reframe</strong> page in the sidebar first and turn the 360&deg; file into a flat MP4. Then come back here.</div></div>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num">A3</div><h3>Mark the Insert Point</h3><span class="wf-tag">manual</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Click the orange Play button to start the video.</li>
+        <li>Watch until Kevin finishes his opening line (usually 3&ndash;6 seconds in).</li>
+        <li>Pause the video by clicking the canvas.</li>
+        <li>Click <strong>Mark Insert Point at Current Time</strong>. A red pin drops on the timeline.</li>
+        <li>You will see a confirmation like <em>&ldquo;Intro will be inserted at 0:05&rdquo;</em>.</li>
+      </ol>
+      <div class="info-box info"><span class="ib-icon">&#x2139;&#xFE0F;</span><div>The total time below the timeline now shows three numbers: <strong>Part 1</strong> (before the intro), <strong>Intro</strong> (about 7 seconds), and <strong>Part 2</strong> (after the intro to end). Total is the full length of the finished video.</div></div>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num">A4</div><h3>Tick Burn Subtitles into Export</h3><span class="wf-tag">manual</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Scroll down to the <strong>&ldquo;Burn subtitles into export&rdquo;</strong> tick box.</li>
+        <li>Click the box so it shows a green tick.</li>
+        <li>A new panel opens with the Gemini API Key field and a Transcribe button.</li>
+        <li>The Gemini key is already saved. You should see dots in the field.</li>
+      </ol>
+      <div class="info-box info"><span class="ib-icon">&#x2139;&#xFE0F;</span><div>Subtitles only burn onto Part 1 and Part 2 (Kevin&rsquo;s speech). The intro clip is left untouched because it has its own animation.</div></div>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num">A5</div><h3>Transcribe via Gemini</h3><span class="wf-tag">automated</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Click the purple <strong>&ldquo;&#x2728; Transcribe via Gemini&rdquo;</strong> button.</li>
+        <li>A status line appears showing chunk-by-chunk progress.</li>
+        <li>You will see messages like <em>&ldquo;Chunk 3 / 28 (40s &rarr; 60s)&hellip;&rdquo;</em> and a 5-second countdown between chunks.</li>
+        <li>Wait until the status turns green and says <em>&ldquo;Transcript ready &mdash; click Export to bake subtitles in&rdquo;</em>.</li>
+      </ol>
+      <div class="info-box info"><span class="ib-icon">&#x2139;&#xFE0F;</span><div><strong>Why the 5-second pauses?</strong> Gemini&rsquo;s free tier only allows 15 calls per minute. The pauses keep Kevin&rsquo;s account safely under the limit. A 9-minute episode takes about 2&ndash;3 minutes to fully transcribe with pacing.</div></div>
+      <div class="info-box warn"><span class="ib-icon">&#x26A0;&#xFE0F;</span><div>If the status goes red and says &ldquo;quota exceeded&rdquo; or &ldquo;RATE_LIMIT&rdquo;, wait until midnight Pacific Time (about 8am UK) for the daily quota to reset and try again. Or open the Advanced section and add an OpenAI key as a fallback.</div></div>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num">A6</div><h3>Pick a Subtitle Style (optional)</h3><span class="wf-tag">manual</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Look just under the Transcribe button.</li>
+        <li>There is a dropdown with three options: <strong>Orange pill</strong> (default), <strong>Dark pill</strong>, or <strong>Outline only</strong>.</li>
+        <li>Drag the slider next to it to change font size.</li>
+        <li>Watch the preview update on the right.</li>
+      </ol>
+      <div class="info-box tip"><span class="ib-icon">&#x1F4A1;</span><div>Orange pill matches the Runpreneur brand colour. Stick with the default unless you have a reason to change it.</div></div>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num">A7</div><h3>Pick Output Resolution</h3><span class="wf-tag">manual</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Find the <strong>Output Resolution</strong> dropdown.</li>
+        <li>Leave it on <strong>1920&times;1080 (Full HD)</strong> for YouTube.</li>
+        <li>Pick a lower resolution only if Kevin specifically asks for a smaller file.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num">A8</div><h3>Export Combined MP4</h3><span class="wf-tag">automated</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Click the big orange <strong>&ldquo;&darr; Export Combined MP4&rdquo;</strong> button.</li>
+        <li>A progress bar appears showing how much of the export is done.</li>
+        <li>For a 9-minute video, the export takes about 4&ndash;6 minutes.</li>
+        <li>When finished, the browser asks you to save the file.</li>
+        <li>Save it to your Downloads folder with the auto-suggested name (already includes the episode number).</li>
+      </ol>
+      <div class="info-box warn"><span class="ib-icon">&#x26A0;&#xFE0F;</span><div>Do not close the Chrome tab during export. If you do, the export cancels and you have to start again.</div></div>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num">A9</div><h3>Upload to Google Drive and Save URL</h3><span class="wf-tag">manual</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Open Google Drive in a new tab.</li>
+        <li>Drag the exported MP4 into the Runpreneur episode folder.</li>
+        <li>Once uploaded, right-click the file and pick <strong>Get link</strong>.</li>
+        <li>Make sure the link is set to <strong>Anyone with the link</strong>.</li>
+        <li>Copy the link.</li>
+        <li>Go back to Content Machine. Paste the link into the <strong>Paste Google Drive URL here&hellip;</strong> field in the AI Chain panel on the right.</li>
+        <li>Click <strong>Save URL &amp; Continue</strong>. This moves the AI Chain to the Thumbnail step.</li>
+      </ol>
+    </div>
+  </div>
+
+</div>
+
+<!-- A5. TOOLS -->
+<div class="section" id="tools-a">
+  <h2 class="section-title"><span class="icon">&#x1F527;</span> A5. Tools &amp; Integrations</h2>
+  <div class="card">
+    <table class="label-table">
+      <thead><tr><th>Tool</th><th>Purpose</th><th>Access</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Content Machine</strong></td><td>The web app that runs the whole workflow in the browser.</td><td><span class="label-badge lb-blue">Connected</span></td></tr>
+        <tr><td><strong>Gemini API</strong></td><td>Listens to Kevin&rsquo;s audio and writes the words he says. Has billing enabled (~&pound;1/month).</td><td><span class="label-badge lb-blue">Connected</span></td></tr>
+        <tr><td><strong>Airtable</strong></td><td>Saves the transcript to the active episode record so other pages can use it later.</td><td><span class="label-badge lb-blue">Connected</span></td></tr>
+        <tr><td><strong>OpenAI Whisper</strong></td><td>Backup transcription if Gemini fails. Sits in the Advanced section, key is optional.</td><td><span class="label-badge lb-amber">Optional</span></td></tr>
+        <tr><td><strong>Google Drive</strong></td><td>Where the finished MP4 is uploaded so editors and the team can access it.</td><td><span class="label-badge lb-blue">Connected</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- A6. APPROVAL -->
+<div class="section" id="approval-a">
+  <h2 class="section-title"><span class="icon">&#x2705;</span> A6. Approval Gates</h2>
+  <div class="card">
+    <p>No formal approval gates. Kevin runs this himself.</p>
+    <div class="info-box info"><span class="ib-icon">&#x2139;&#xFE0F;</span><div>The only human check is watching the exported MP4 before uploading to YouTube. If the subtitles are visibly out of sync by more than 2 seconds, re-run the transcription before uploading.</div></div>
+  </div>
+</div>
+
+<!-- A7. OUTPUTS -->
+<div class="section" id="outputs-a">
+  <h2 class="section-title"><span class="icon">&#x1F4E4;</span> A7. Outputs &amp; Confirmations</h2>
+  <div class="card">
+    <table class="label-table">
+      <thead><tr><th>Output</th><th>Where</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Combined MP4</strong></td><td>Downloads folder on Mac</td><td>1920&times;1080, H.264, subtitles burned in. Filename includes episode number.</td></tr>
+        <tr><td><strong>Transcript</strong></td><td>Airtable episode record</td><td>Full text saved to the Description field for the active episode.</td></tr>
+        <tr><td><strong>Google Drive URL</strong></td><td>AI Chain panel</td><td>Saved on the episode so the next steps (Thumbnail, Copywriting) can use it.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- STAGE B &mdash; PUBLISHING &amp; SYNC -->
+<!-- ════════════════════════════════════════ -->
+
+<div class="stage-banner">
+  <div class="stage-banner-inner">
+    <div class="stage-tag">&#x1F4E2; Stage B</div>
+    <h2>Publishing &amp; Sync</h2>
+    <div class="stage-desc">Publish the finished episode across all platforms, paste URLs back into Ready to Publish, set status to Approved, verify Runpreneur Sync, and update Strava.</div>
+  </div>
+</div>
+
+<!-- B1. PURPOSE -->
+<div class="section" id="purpose-b">
+  <h2 class="section-title"><span class="icon">&#x1F3AF;</span> B1. Purpose &amp; Scope</h2>
+  <div class="card">
+    <p>This stage covers everything that happens AFTER an episode video is finished. It explains how Kevin publishes the episode across YouTube, blog, podcast, Facebook page, and social platforms. It also explains how the Runpreneur Sync page auto-updates the website with Stripe donation totals.</p>
+    <p>Some parts are automated by the Content Machine. Some parts are manual because Kevin prefers control over them, or because the platform does not allow automation.</p>
+    <div class="info-box info"><span class="ib-icon">&#x2139;&#xFE0F;</span><div><strong>Scope:</strong> In scope &mdash; Buffer scheduling, manual posting to YouTube/blog/podcast/Facebook, pasting URLs into Ready to Publish, setting episode status to Approved, Runpreneur Sync, manual Strava updates. Out of scope &mdash; video editing (see Stage A above), thumbnail creation, transcript generation.</div></div>
+  </div>
+</div>
+
+<!-- B2. TRIGGER -->
+<div class="section" id="trigger-b">
+  <h2 class="section-title"><span class="icon">&#x1F4A1;</span> B2. When to Use This Skill</h2>
+  <div class="card">
+    <div class="card-header">&#x1F4AC; Trigger Phrases</div>
+    <p>Use this stage when:</p>
+    <ul>
+      <li>An episode MP4 has been exported from Stage A</li>
+      <li>The thumbnail is ready</li>
+      <li>Copywriting (caption, blog post, description) is approved</li>
+      <li>You are ready to publish the episode live across all platforms</li>
+    </ul>
+    <div class="info-box warn"><span class="ib-icon">&#x26A0;&#xFE0F;</span><div><strong>Do not use this stage when:</strong> the video is still being edited, the copywriting is not approved yet, or the thumbnail is missing. Publish only when everything is signed off.</div></div>
+  </div>
+</div>
+
+<!-- B3. INPUTS -->
+<div class="section" id="inputs-b">
+  <h2 class="section-title"><span class="icon">&#x1F4E5;</span> B3. Required Inputs</h2>
+  <div class="card">
+    <table class="label-table">
+      <thead><tr><th>Input</th><th>Required</th><th>Description</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Finished MP4</strong></td><td><span class="label-badge lb-red">Required</span></td><td>The exported episode with intro + burned-in subtitles. Lives in Google Drive.</td><td><em>1995-Full-Episode.mp4</em></td></tr>
+        <tr><td><strong>Thumbnail PNG</strong></td><td><span class="label-badge lb-red">Required</span></td><td>The custom thumbnail made in Thumbnail Maker.</td><td><em>1995-Thumbnail.png</em></td></tr>
+        <tr><td><strong>Copywriting Pack</strong></td><td><span class="label-badge lb-red">Required</span></td><td>Approved captions, blog post, podcast description, YouTube title and description.</td><td><em>From Copywriting page</em></td></tr>
+        <tr><td><strong>Buffer Account 1</strong></td><td><span class="label-badge lb-red">Required</span></td><td>One of Kevin&rsquo;s 2 free Buffer accounts. Handles a set of social platforms within free-tier limits.</td><td><em>buffer.com login 1</em></td></tr>
+        <tr><td><strong>Buffer Account 2</strong></td><td><span class="label-badge lb-red">Required</span></td><td>Second free Buffer account. Handles the remaining social platforms (the free plan caps how many can connect to one account).</td><td><em>buffer.com login 2</em></td></tr>
+        <tr><td><strong>Stripe Account</strong></td><td><span class="label-badge lb-amber">Auto</span></td><td>Pulled automatically by Runpreneur Sync. No manual step.</td><td><em>Connected</em></td></tr>
+        <tr><td><strong>Strava Login</strong></td><td><span class="label-badge lb-amber">Manual</span></td><td>Kevin updates Strava manually due to API limits and AI workflow caps.</td><td><em>strava.com login</em></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- B4. WORKFLOW -->
+<div class="section" id="workflow-b">
+  <h2 class="section-title"><span class="icon">&#x1F504;</span> B4. Step-by-Step Workflow</h2>
+
+  <div class="card">
+    <div class="card-header">&#x1F5FA; Process Flow &mdash; Buffer-Scheduled Social Posts</div>
+    <p style="font-size:0.88rem;color:var(--slate-600);margin-bottom:0.5rem;">Kevin uses 2 free Buffer accounts to schedule social posts. Each Buffer account holds a set of platforms within the free-plan limit.</p>
+    <div class="flow">
+      <div class="flow-step primary"><span class="flow-icon">&#x1F4DD;</span>Copy Caption<div class="flow-sub">from Copywriting</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step purple"><span class="flow-icon">&#x1F4F1;</span>Buffer Account 1<div class="flow-sub">schedule batch 1</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step purple"><span class="flow-icon">&#x1F4F1;</span>Buffer Account 2<div class="flow-sub">schedule batch 2</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step success"><span class="flow-icon">&#x23F0;</span>Auto-publish<div class="flow-sub">Buffer fires on schedule</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">&#x1F5FA; Process Flow &mdash; Manual Platforms (Kevin posts these himself)</div>
+    <p style="font-size:0.88rem;color:var(--slate-600);margin-bottom:0.5rem;">YouTube full video, blog, podcast, and Facebook page are NOT scheduled through Buffer. Kevin posts each one manually.</p>
+    <div class="flow">
+      <div class="flow-step warning"><span class="flow-icon">&#x1F4FA;</span>YouTube Upload<div class="flow-sub">full episode</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step warning"><span class="flow-icon">&#x1F4DD;</span>Blog Post<div class="flow-sub">runpreneur.org.uk</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step warning"><span class="flow-icon">&#x1F3A7;</span>Podcast<div class="flow-sub">manual upload</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step warning"><span class="flow-icon">&#x1F4D8;</span>Facebook Page<div class="flow-sub">manual post</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step success"><span class="flow-icon">&#x1F517;</span>Save URLs<div class="flow-sub">to Ready to Publish</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">&#x1F5FA; Process Flow &mdash; Runpreneur Sync (Automatic)</div>
+    <p style="font-size:0.88rem;color:var(--slate-600);margin-bottom:0.5rem;">The Runpreneur Sync page pulls Stripe totals and pushes data to runpreneur.org.uk automatically. No manual step needed.</p>
+    <div class="flow">
+      <div class="flow-step primary"><span class="flow-icon">&#x1F4B3;</span>Pull Stripe Data<div class="flow-sub">donation totals</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step purple"><span class="flow-icon">&#x1F504;</span>Sync to Site<div class="flow-sub">runpreneur.org.uk</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step success"><span class="flow-icon">&#x2705;</span>Live on Website<div class="flow-sub">counter updated</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">&#x1F5FA; Process Flow &mdash; Strava (Manual, Kevin Only)</div>
+    <p style="font-size:0.88rem;color:var(--slate-600);margin-bottom:0.5rem;">Strava is updated manually by Kevin. The Strava API has rate limits and the AI workflow has its own caps, so automation is not reliable.</p>
+    <div class="flow">
+      <div class="flow-step warning"><span class="flow-icon">&#x1F3C3;</span>Daily Run<div class="flow-sub">Kevin records</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step warning"><span class="flow-icon">&#x270F;&#xFE0F;</span>Update Strava<div class="flow-sub">manual entry</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step success"><span class="flow-icon">&#x2705;</span>Posted<div class="flow-sub">on Strava feed</div></div>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num stage-b">B1</div><h3>Schedule Social Posts in Buffer Account 1</h3><span class="wf-tag">manual</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Open Buffer at <a href="https://buffer.com">buffer.com</a> and log in to <strong>Account 1</strong>.</li>
+        <li>Click <strong>Create Post</strong>.</li>
+        <li>Pick the platforms connected to this account (the free plan caps how many can connect to one Buffer account).</li>
+        <li>Paste the approved caption from the Copywriting page.</li>
+        <li>Attach the short-form clip or static image.</li>
+        <li>Set the schedule time matching the Content Calendar slot.</li>
+        <li>Click <strong>Schedule Post</strong>.</li>
+      </ol>
+      <div class="info-box tip"><span class="ib-icon">&#x1F4A1;</span><div>Kevin uses TWO free Buffer accounts because the free plan limits how many channels one account can connect. Splitting platforms across two accounts is a free workaround for the paid plan.</div></div>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num stage-b">B2</div><h3>Schedule Social Posts in Buffer Account 2</h3><span class="wf-tag">manual</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Log out of Account 1, log in to <strong>Buffer Account 2</strong>.</li>
+        <li>Click <strong>Create Post</strong>.</li>
+        <li>Pick the platforms connected to this account (the remaining ones from Account 1).</li>
+        <li>Paste the matching caption for each platform.</li>
+        <li>Attach the right media.</li>
+        <li>Set the schedule time.</li>
+        <li>Click <strong>Schedule Post</strong>.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num stage-b">B3</div><h3>Publish YouTube Full Video (Manual)</h3><span class="wf-tag">manual</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Open <a href="https://studio.youtube.com">YouTube Studio</a>.</li>
+        <li>Click <strong>Create &rarr; Upload videos</strong>.</li>
+        <li>Drag the finished MP4 into the upload box.</li>
+        <li>Paste the title and description from the Copywriting page.</li>
+        <li>Upload the custom thumbnail PNG.</li>
+        <li>Set tags, category (People &amp; Blogs), and visibility (Public or Scheduled).</li>
+        <li>Click <strong>Publish</strong> (or schedule).</li>
+        <li>Copy the public YouTube URL.</li>
+      </ol>
+      <div class="info-box info"><span class="ib-icon">&#x2139;&#xFE0F;</span><div>YouTube is NOT scheduled through Buffer because Buffer&rsquo;s YouTube support is limited. Kevin uploads to YouTube Studio directly so he has full control over thumbnail, end screens, cards, and chapter markers.</div></div>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num stage-b">B4</div><h3>Publish Blog Post (Manual)</h3><span class="wf-tag">manual</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Open <a href="https://runpreneur.org.uk">runpreneur.org.uk</a> WordPress admin.</li>
+        <li>Click <strong>Posts &rarr; Add New</strong>.</li>
+        <li>Paste the blog title and body from the Copywriting page.</li>
+        <li>Embed the YouTube video using the URL from B3.</li>
+        <li>Set featured image to the thumbnail PNG.</li>
+        <li>Add categories and tags (e.g. Runpreneur, Mindset, Daily Diary).</li>
+        <li>Click <strong>Publish</strong>.</li>
+        <li>Copy the blog post URL.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num stage-b">B5</div><h3>Publish Podcast Episode (Manual)</h3><span class="wf-tag">manual</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Open the podcast host (e.g. Anchor, Buzzsprout, or whichever platform is in use).</li>
+        <li>Click <strong>New Episode</strong>.</li>
+        <li>Upload the audio file extracted from the MP4.</li>
+        <li>Paste the podcast title and description from the Copywriting page.</li>
+        <li>Set episode number and publish date.</li>
+        <li>Click <strong>Publish</strong>.</li>
+        <li>Copy the podcast episode URL.</li>
+      </ol>
+      <div class="info-box info"><span class="ib-icon">&#x2139;&#xFE0F;</span><div>The podcast platform handles distribution to Spotify, Apple Podcasts, and other directories automatically once published.</div></div>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num stage-b">B6</div><h3>Publish to Facebook Page (Manual)</h3><span class="wf-tag">manual</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Open the Runpreneur Facebook page directly (not through Buffer).</li>
+        <li>Click <strong>Create Post</strong>.</li>
+        <li>Paste the Facebook caption from the Copywriting page.</li>
+        <li>Attach the video file or paste the YouTube link.</li>
+        <li>Click <strong>Post</strong>.</li>
+        <li>Copy the Facebook post URL.</li>
+      </ol>
+      <div class="info-box info"><span class="ib-icon">&#x2139;&#xFE0F;</span><div>Facebook page is published manually because Buffer&rsquo;s Facebook support has changed and Kevin gets better reach posting natively.</div></div>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num stage-b">B7</div><h3>Paste All URLs into Ready to Publish</h3><span class="wf-tag">manual</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Go back to Content Machine &rarr; <strong>Ready to Publish</strong> page.</li>
+        <li>Find the episode card for today&rsquo;s episode.</li>
+        <li>Paste the URLs collected in B3&ndash;B6 into the matching fields:
+          <ul>
+            <li>YouTube URL</li>
+            <li>Blog post URL</li>
+            <li>Podcast URL</li>
+            <li>Facebook post URL</li>
+          </ul>
+        </li>
+        <li>Click <strong>Save</strong>.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num stage-b">B8</div><h3>Set Episode to Approved</h3><span class="wf-tag">approval gate</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Still on Ready to Publish, find the episode status dropdown.</li>
+        <li>Change status from <strong>Pending</strong> to <strong>Approved</strong>.</li>
+        <li>The episode moves to the <strong>Published Content</strong> page automatically.</li>
+        <li>Done. Episode is live everywhere.</li>
+      </ol>
+      <div class="info-box tip"><span class="ib-icon">&#x2705;</span><div>Once Approved, the episode appears on the Stats page and counts toward the Runpreneur fundraising progress.</div></div>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num stage-b">B9</div><h3>Verify Runpreneur Sync (Automatic)</h3><span class="wf-tag">automated</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>Open Content Machine &rarr; <strong>Runpreneur Sync</strong> page.</li>
+        <li>Confirm the latest Stripe donation total has pulled through.</li>
+        <li>Confirm the website shows the updated counter (visit runpreneur.org.uk).</li>
+        <li>No manual sync needed &mdash; the page updates automatically.</li>
+      </ol>
+      <div class="info-box info"><span class="ib-icon">&#x2139;&#xFE0F;</span><div>If the website counter does NOT match Stripe within a few minutes, click <strong>Refresh Now</strong> on the Runpreneur Sync page to force a manual pull.</div></div>
+    </div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header"><div class="wf-num stage-b">B10</div><h3>Update Strava (Manual, Kevin Only)</h3><span class="wf-tag">manual</span></div>
+    <div class="wf-body">
+      <ol class="steps">
+        <li>After Kevin&rsquo;s daily run, open <a href="https://strava.com">strava.com</a>.</li>
+        <li>Manually update the run entry with distance, time, and any notes.</li>
+        <li>Add the episode link or hashtag if relevant.</li>
+        <li>Click <strong>Save</strong>.</li>
+      </ol>
+      <div class="info-box warn"><span class="ib-icon">&#x26A0;&#xFE0F;</span><div><strong>Kevin-only step.</strong> Strava has API rate limits and the AI workflow has its own caps that make full automation unreliable. Kevin prefers to update Strava himself because he is more comfortable doing this manually and it stays connected to his actual training.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- B5. TOOLS -->
+<div class="section" id="tools-b">
+  <h2 class="section-title"><span class="icon">&#x1F527;</span> B5. Tools &amp; Integrations</h2>
+  <div class="card">
+    <table class="label-table">
+      <thead><tr><th>Tool</th><th>Purpose</th><th>Access</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Buffer (Account 1)</strong></td><td>Schedules social posts on one batch of platforms. Free plan.</td><td><span class="label-badge lb-blue">Connected</span></td></tr>
+        <tr><td><strong>Buffer (Account 2)</strong></td><td>Schedules social posts on the remaining platforms. Free plan workaround for channel limits.</td><td><span class="label-badge lb-blue">Connected</span></td></tr>
+        <tr><td><strong>YouTube Studio</strong></td><td>Manual upload of the full episode video.</td><td><span class="label-badge lb-amber">Manual</span></td></tr>
+        <tr><td><strong>WordPress (runpreneur.org.uk)</strong></td><td>Manual blog post publishing.</td><td><span class="label-badge lb-amber">Manual</span></td></tr>
+        <tr><td><strong>Podcast Host</strong></td><td>Manual upload of audio episode. Distributes to Spotify, Apple Podcasts, etc.</td><td><span class="label-badge lb-amber">Manual</span></td></tr>
+        <tr><td><strong>Facebook Page</strong></td><td>Manual native post for better reach.</td><td><span class="label-badge lb-amber">Manual</span></td></tr>
+        <tr><td><strong>Content Machine &mdash; Ready to Publish</strong></td><td>Where URLs are pasted back and status is set to Approved.</td><td><span class="label-badge lb-blue">Connected</span></td></tr>
+        <tr><td><strong>Content Machine &mdash; Runpreneur Sync</strong></td><td>Auto-pulls Stripe totals and updates the website. No manual step.</td><td><span class="label-badge lb-blue">Automated</span></td></tr>
+        <tr><td><strong>Stripe</strong></td><td>Source of donation totals. Pulled automatically by Runpreneur Sync.</td><td><span class="label-badge lb-blue">Connected</span></td></tr>
+        <tr><td><strong>Strava</strong></td><td>Kevin&rsquo;s running activity log. Manually updated by Kevin.</td><td><span class="label-badge lb-red">Kevin Only</span></td></tr>
+        <tr><td><strong>Airtable</strong></td><td>Stores episode records, URLs, and status. Updated by Ready to Publish.</td><td><span class="label-badge lb-blue">Connected</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- B6. APPROVAL -->
+<div class="section" id="approval-b">
+  <h2 class="section-title"><span class="icon">&#x2705;</span> B6. Approval Gates</h2>
+  <div class="card">
+    <p>Kevin self-approves at the end of the workflow by changing episode status to <strong>Approved</strong> on the Ready to Publish page.</p>
+    <div class="info-box warn"><span class="ib-icon">&#x26A0;&#xFE0F;</span><div><strong>Approval Gate:</strong> Status only flips to Approved AFTER all URLs (YouTube, blog, podcast, Facebook) are pasted in and saved. Do not approve early.</div></div>
+  </div>
+</div>
+
+<!-- B7. OUTPUTS -->
+<div class="section" id="outputs-b">
+  <h2 class="section-title"><span class="icon">&#x1F4E4;</span> B7. Outputs &amp; Confirmations</h2>
+  <div class="card">
+    <table class="label-table">
+      <thead><tr><th>Output</th><th>Where</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Scheduled social posts</strong></td><td>Buffer Account 1 + Account 2</td><td>Auto-publish at scheduled times.</td></tr>
+        <tr><td><strong>Live YouTube video</strong></td><td>youtube.com/@runpreneur</td><td>Public on the channel.</td></tr>
+        <tr><td><strong>Live blog post</strong></td><td>runpreneur.org.uk/blog</td><td>Embedded YouTube + written content.</td></tr>
+        <tr><td><strong>Live podcast episode</strong></td><td>Spotify, Apple Podcasts, etc.</td><td>Auto-distributed by the podcast host.</td></tr>
+        <tr><td><strong>Live Facebook post</strong></td><td>Runpreneur Facebook page</td><td>Native post for organic reach.</td></tr>
+        <tr><td><strong>Approved episode record</strong></td><td>Airtable Operations Director base</td><td>All URLs saved, status = Approved, moved to Published Content.</td></tr>
+        <tr><td><strong>Website counter updated</strong></td><td>runpreneur.org.uk</td><td>Stripe totals synced automatically.</td></tr>
+        <tr><td><strong>Strava entry</strong></td><td>Strava feed</td><td>Manually updated by Kevin.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- CHANGELOG -->
+<div class="section" id="changelog">
+  <h2 class="section-title"><span class="icon">&#x1F4DD;</span> Changelog</h2>
+  <div class="card">
+    <table class="label-table">
+      <thead><tr><th>Version</th><th>Date</th><th>Changes</th></tr></thead>
+      <tbody>
+        <tr><td><span class="label-badge lb-blue">1.0</span></td><td>16 Jun 2026</td><td>Initial release. Combined SOP covering Stage A (Video Production: Intro + Subtitle workflow with Gemini transcription) and Stage B (Publishing &amp; Sync: 2-account Buffer scheduling, manual platforms, Ready to Publish, Runpreneur Sync, and manual Strava update).</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
